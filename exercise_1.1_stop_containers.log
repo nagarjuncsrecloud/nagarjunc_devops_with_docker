@@ -1,0 +1,26 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20250208043608
+Username: NAGARJUN\arjun
+RunAs User: NAGARJUN\arjun
+Configuration Name: 
+Machine: NAGARJUN (Microsoft Windows NT 10.0.26100.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe
+Process ID: 10992
+PSVersion: 5.1.26100.2161
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.2161
+BuildVersion: 10.0.26100.2161
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\arjun\exercise_1.1_stop_containers.log
+PS C:\Users\arjun> docker ps -a
+28af83bfcd7e   redis     "docker-entrypoint.s…"   53 minutes ago   Up 53 minutes               6379/tcp   exercise_remove_1.1a
+PS C:\Users\arjun> Stop-Transcript
+**********************
+Windows PowerShell transcript end
+End time: 20250208043636
+**********************
