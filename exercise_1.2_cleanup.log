@@ -1,0 +1,34 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20250208044520
+Username: NAGARJUN\arjun
+RunAs User: NAGARJUN\arjun
+Configuration Name: 
+Machine: NAGARJUN (Microsoft Windows NT 10.0.26100.0)
+Host Application: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe
+Process ID: 10992
+PSVersion: 5.1.26100.2161
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.2161
+BuildVersion: 10.0.26100.2161
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\arjun\exercise_1.2_cleanup.log
+PS C:\Users\arjun\Downloads\DevOps_Docker_Projects> docker container stop exercise_remove_1.1a
+
+PS C:\Users\arjun\Downloads\DevOps_Docker_Projects> docker rm exercise_remove_1.1a
+
+PS C:\Users\arjun\Downloads\DevOps_Docker_Projects> docker container prune
+
+PS C:\Users\arjun\Downloads\DevOps_Docker_Projects> docker image rm redis
+
+PS C:\Users\arjun\Downloads\DevOps_Docker_Projects> docker images
+
+PS C:\Users\arjun\Downloads\DevOps_Docker_Projects> Stop-Transcript
+**********************
+Windows PowerShell transcript end
+End time: 20250208045020
+**********************
