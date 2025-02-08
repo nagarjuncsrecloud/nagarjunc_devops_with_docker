@@ -1,0 +1,58 @@
+Method-1 (Using Exec):
+----------------------
+Step-1: Started the container "my_ubuntu" in the image "ubuntu" using:
+
+$ docker run -it --name my_ubuntu ubuntu sh -c "while true; do echo 'Input website:'; read website; echo 'Searching..'; sleep 1; curl http://\$website; done"
+
+Step-2: To fix the missing curl dependency, I executed:
+
+$ docker exec -it my_ubuntu apt update
+$ C:\Users\arjun\Downloads\DevOps_Docker_Projects> docker exec -it my_ubuntu apt install -y curl
+
+Step-3: Returned to the original terminal (where the container is running) and entered:
+
+helsinki.fi
+
+Output:
+
+Searching..
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx/1.24.0</center>
+</body>
+</html>
+Input website:
+
+
+
+
+Method-2 (Using Dockerfile):
+-----------------------------------
+Step-1: Created a Dockerfile with below contents(Docker File attached with this commit):
+
+FROM ubuntu
+RUN apt update && apt install -y curl
+CMD sh -c "while true; do echo 'Input website:'; read website; echo 'Searching..'; sleep 1; curl http://\$website; done"
+
+Step-2: Build and Run using:
+
+$ docker build -t ubuntu-with-curl .
+$ docker run -it ubuntu-with-curl
+
+Output:
+PS C:\Users\arjun\Downloads\DevOps_Docker_Projects> docker run -it ubuntu-with-curl
+Input website:
+helsinki.fi
+Searching..
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx/1.24.0</center>
+</body>
+</html>
+Input website:
+^C
+PS C:\Users\arjun\Downloads\DevOps_Docker_Projects>
