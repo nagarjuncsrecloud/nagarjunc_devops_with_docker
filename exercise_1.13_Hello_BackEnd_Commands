@@ -1,0 +1,11 @@
+Step-1: Build the image with the correct platform using:
+
+$ docker build --platform linux/amd64 -t example-backend .
+
+Step-2: Run the container using:
+
+$ docker run -p 8080:8080 example-backend
+
+Step-3: Test the application by opening the browser and visiting:
+
+http://localhost:8080/ping
