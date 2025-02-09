@@ -1,29 +1,29 @@
-# Use Amazon Corretto 17 as the base image
-FROM amazoncorretto:17
+# Stage 1: Build the React app
+FROM node:16 AS build
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Maven wrapper and pom.xml files first to leverage caching for dependencies
-COPY ./mvnw ./mvnw
-COPY ./pom.xml ./pom.xml
-COPY ./.mvn ./.mvn
-RUN chmod +x mvnw
+# Copy package.json and package-lock.json to leverage caching
+COPY package*.json ./
 
-# Run Maven to resolve dependencies
-RUN ./mvnw dependency:resolve
+# Install dependencies
+RUN npm install --legacy-peer-deps
 
-# Copy the source code into the container
-COPY ./src ./src
+# Copies all files, including the public directory
+COPY . .
 
-# Build the Spring Boot application
-RUN ./mvnw package -DskipTests
+# Build the app
+RUN npm run build
 
-COPY target/docker-example-1.1.3.jar app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Stage 2: Serve the built app with Nginx
+FROM nginx:alpine
 
-# Expose the default Spring Boot port
-EXPOSE 8080
+# Copy the built app from the build stage
+COPY --from=build /app/build /usr/share/nginx/html
 
-# Run the Spring Boot application
-CMD ["java", "-jar", "target/docker-example-1.1.3.jar"]
+# Expose port 5007 for the web server
+EXPOSE 5007
+
+# Start Nginx in the foreground
+CMD ["nginx", "-g", "daemon off;"]
