@@ -1,0 +1,19 @@
+Step-1: Command to open and expose port 8080 on the container and map it to a port on our host machine using the -p flag:
+
+$ docker run -d -p 8080:8080 devopsdockeruh/simple-web-service server
+
+Step-2: Verify the container with open port
+$ docker ps
+								
+Expected Result:																																					
+----------------
+CONTAINER ID   IMAGE                               COMMAND                  CREATED              STATUS              PORTS                    NAMES
+6c53ef19a0d5   devopsdockeruh/simple-web-service   "/usr/src/app/server…"   About a minute ago   Up About a minute   0.0.0.0:8080->8080/tcp   infallible_ishizaka
+488ba75fdcbd   devopsdockeruh/simple-web-service   "/usr/src/app/server"    14 minutes ago       Up 14 minutes                                stupefied_bose
+
+Step-3: Open your browser and navigate to http://localhost:8080/
+
+Expected Result(Raw Data Format):																																	
+---------------------------------
+	
+{"message":"You connected to the following path: /","path":"/"}
