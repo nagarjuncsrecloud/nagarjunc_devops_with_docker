@@ -1,0 +1,35 @@
+Step-1: Grant Permissions to the local "logs" folder using:
+
+$ icacls "C:\Users\arjun\DevOps_Docker_Projects\logs" /grant Everyone:F
+
+Step-2: Creating "text.log" File under "logs" folder using:
+
+$ New-Item C:\Users\arjun\DevOps_Docker_Projects\logs\text.log -ItemType File
+
+Step-3: Run the Container with Specific File (text.log) Mount using:
+
+$ docker run -d -v C:\Users\arjun\DevOps_Docker_Projects\logs\text.log:/usr/src/app/text.log devopsdockeruh/simple-web-service
+
+Step-4: Verify the Container is running using:
+
+$ docker ps
+
+Step-5: Once the container is confirmed to be running, monitor the file using:
+
+$ Get-Content logs\text.log
+
+Output:
+-------
+PS C:\Users\arjun\DevOps_Docker_Projects> Get-Content logs\text.log
+2025-02-09 17:49:55 +0000 UTC
+2025-02-09 17:49:57 +0000 UTC
+2025-02-09 17:49:59 +0000 UTC
+2025-02-09 17:50:01 +0000 UTC
+2025-02-09 17:50:03 +0000 UTC
+Secret message is: 'You can find the source code here: https://github.com/docker-hy'
+2025-02-09 17:50:05 +0000 UTC
+2025-02-09 17:50:07 +0000 UTC
+2025-02-09 17:50:09 +0000 UTC
+2025-02-09 17:50:11 +0000 UTC
+2025-02-09 17:50:13 +0000 UTC
+Secret message is: 'You can find the source code here: https://github.com/docker-hy'
