@@ -1,0 +1,10 @@
+Step-1: Changes to the Dockerfiles(example-frontend and example-backend). Dockerfiles is attached with the commit.
+Step-2: Created a "docker-setup" directory under "material-applications" directory. 
+Step-3: Create a custom "docker-compose.yml" file under the "docker-setup" directory from Step-2 with backend and frontend build configuration. docker-compose.yml is attached with the commit.
+Step-4: Created nginx.conf and modified it with http configurations to request the backend which in turn responds back to frontend. nginx.conf is attached with the commit.
+
+Commands:
+---------
+$ docker build -t example-frontend .
+$ docker run -p 5007:80 example-frontend
+$ docker-compose up --build
