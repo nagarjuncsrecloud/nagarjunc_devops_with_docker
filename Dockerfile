@@ -1,30 +1,37 @@
-# Stage 1: Build the Go application
-FROM golang:1.16 AS build
+# Stage 1: Build the React app
+FROM node:16 AS build
 
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy go module files and download dependencies
-COPY go.mod go.sum ./
-RUN go mod download
+# Copy package.json and package-lock.json to leverage caching
+COPY package*.json ./
 
-# Copy the rest of the application code
+# Install dependencies
+RUN npm install --legacy-peer-deps
+
+# Copies all files, including the public directory
 COPY . .
 
-# Build the application for Linux architecture
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o server .
+# Build the app
+RUN npm run build && ls -al build
 
-# Stage 2: Run the application
-FROM alpine:latest
+# Stage 2: Serve the built app with Nginx
+FROM nginx:alpine
 
-WORKDIR /root/
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Install necessary libraries
-RUN apk add --no-cache bash ca-certificates
+WORKDIR /usr/share/nginx/html
+#COPY ./build /usr/share/nginx/html
 
-# Copy the built binary and ensure it has executable permissions
-COPY --from=build /app/server .
-RUN chmod +x ./server
+# Copy the built app from the build stage
+COPY --from=build /app/build /usr/share/nginx/html
 
-EXPOSE 8080
+# Configure environment variables for the frontend
+ENV REACT_APP_BACKEND_URL=http://localhost:8080
 
-CMD ["./server"]
+# Expose port 5007 for the web server
+EXPOSE 5007
+
+# Start Nginx in the foreground
+CMD ["nginx", "-g", "daemon off;"]
